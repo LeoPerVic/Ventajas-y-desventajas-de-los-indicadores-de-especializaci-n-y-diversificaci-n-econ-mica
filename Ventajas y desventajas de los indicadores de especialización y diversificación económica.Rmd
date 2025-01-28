@@ -48,6 +48,8 @@ $X_j$: total de la variable x en el municipio j \
 $X_{iRef}$: variable x del sector i en el territorio de referencia \
 $X_{Ref}$: total de la variable x en el territorio de referencia \
 
+#### *1.3. Coeficiente de Gini*\
+
 $$
 Gini = 1 + \frac{1}{r} - \frac{2 \sum_{j=i}^{n} ac(x_{ij})}{r^2 \mu}
 $$
