@@ -3,6 +3,7 @@ title: Ventajas y desventajas de los indicadores de especialización y diversifi
   económica
 author: "Leonardo Pérez Victorino"
 date: "2025-01-28"
+bibliography: bibilografia.bib
 output: html_document
 ---
 
@@ -15,4 +16,4 @@ knitr::opts_chunk$set(message = FALSE)
 ### **Introducción**
 
 <div style="text-align: justify">  <div/>
-La especialización económica de una región hace referencia a la concentración de actividades en las que se posee ventajas comparativas. Si bien la especialización mejora le eficiencia de la actividad, permite alcanzar economías de escala y fortalece la competitividad a través de la formación de clústeres. Una excesiva dependencia en sectores especializados puede incrementar la vulnerabilidad de la economía regional ante cambios en el mercado o cambios tecnológicos (Krugman, 1991).
+La especialización económica de una región hace referencia a la concentración de actividades en las que se posee ventajas comparativas. Si bien la especialización mejora le eficiencia de la actividad, permite alcanzar economías de escala y fortalece la competitividad a través de la formación de clústeres. Una excesiva dependencia en sectores especializados puede incrementar la vulnerabilidad de la economía regional ante cambios en el mercado o cambios tecnológicos (@krugman1991).
