@@ -455,10 +455,60 @@ el territorio de referencia<br />
 </p>
 </div>
 <div id="coeficiente-de-gini" class="section level4">
-<h4><em>1.3. Coeficiente de Gini</em><br />
-</h4>
+<h4><strong>1.3. Coeficiente de Gini</strong></h4>
 <p><span class="math display">\[
 Gini = 1 + \frac{1}{r} - \frac{2 \sum_{j=i}^{n} ac(x_{ij})}{r^2 \mu}
+\]</span> Donde: <span class="math inline">\(r\)</span>: número total de
+industria o ramas, <span class="math inline">\(x_{ij}\)</span>: variable
+x de la industria i en la j, <span class="math inline">\({\sum_{j=i}^{n}
+ac(x_{ij})}\)</span>: acumulado de la variable x por industria i en la
+entidad j, <span class="math inline">\(μ\)</span>: la media del empleo
+total del estado j respecto del total de ramas.</p>
+</div>
+<div id="índices-de-diversificación-económica" class="section level4">
+<h4><strong>2.Índices de diversificación económica</strong><br />
+</h4>
+</div>
+<div id="inverso-del-coeficiente-de-hirshman-herfindahl-ihh" class="section level4">
+<h4><em>2.1. Inverso del Coeficiente de Hirshman-Herfindahl
+(IHH)</em><br />
+</h4>
+<p><span class="math display">\[IHH = 1- ({\frac{X_{ij}}{X_{iRef}} -
+\frac{X_j}{X_{Ref}}}) \]</span> Donde:<br />
+<span class="math inline">\(X_{ij}\)</span>: variable x del sector i en
+el municipio j<br />
+<span class="math inline">\(X_j\)</span>: total de la variable x en el
+municipio j<br />
+<span class="math inline">\(X_{iRef}\)</span>: variable x del sector i
+en el territorio de referencia<br />
+<span class="math inline">\(X_{Ref}\)</span>: total de la variable x en
+el territorio de referencia<br />
+</p>
+</div>
+<div id="índice-de-la-ojiva" class="section level4">
+<h4><em>2.2. Índice de la Ojiva</em><br />
+</h4>
+<p><span class="math display">\[
+Ojiva = \sqrt{\sum_{i=1}^{n} \left( s_i - \frac{1}{n} \right)^2 }
+\]</span></p>
+<p>Donde: <span class="math inline">\(s_i\)</span>: participación
+relativa del sector i en el total<br />
+</p>
+<p><span class="math inline">\(n\)</span>: número total de sectores</p>
+</div>
+<div id="índice-de-variedad-relacionada-vr" class="section level4">
+<h4><em>2.3. Índice de Variedad Relacionada (VR)</em><br />
+</h4>
+<p><span class="math display">\[
+VR = \sum_{g=1}^{G} P_g H_g
+\]</span></p>
+<p>Donde:</p>
+<p><span class="math display">\[
+P_g = \sum_{i \in S_g} p_i
+\]</span></p>
+<p><span class="math display">\[
+H_g = \sum_{i \in S_g} \left( \frac{p_i}{P_g} \log_2 \left(
+\frac{1}{\frac{p_i}{P_g}} \right) \right)
 \]</span></p>
 </div>
 </div>
