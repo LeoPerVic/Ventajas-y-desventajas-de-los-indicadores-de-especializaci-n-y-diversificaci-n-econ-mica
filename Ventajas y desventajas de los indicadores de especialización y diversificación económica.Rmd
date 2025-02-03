@@ -17,15 +17,19 @@ knitr::opts_chunk$set(message = FALSE)
 ### **Introducción**
 
 <div style="text-align: justify">  <div/>
-La especialización económica de una región hace referencia a la concentración de actividades en las que se posee ventajas comparativas. Si bien la especialización mejora le eficiencia de la actividad, permite alcanzar economías de escala y fortalece la competitividad a través de la formación de clústeres. Una excesiva dependencia en sectores especializados puede incrementar la vulnerabilidad de la economía regional ante cambios en el mercado o cambios tecnológicos ({@krugman1991}).\
-     En contraparte, se tiene la diversificación económica, principalmente asociada a la resiliencia económica, ya que son menos susceptibles a choques externos al no depender de un único sector (@imbs2003). @hausmann2014 mencionan que las regiones que tienen una economía diversificada tienen una mayor capacidad de adaptación frente a los cambios estructurales del mercado mundial debido a que la diversificación fomenta la innovación, al crear entornos de competencia e intercambio de conocimientos entre sectores.\
-     En el caso de México, Hirsch y Rosas-Rodríguez (2018) destacan que no existen diferencias significativas en el PIB per cápita entre entidades diversificadas y especializadas, sin embargo, los estados diversificados muestran tasas de crecimiento sostenidas. En este contexto, se introduce la especialización inteligente como una herramienta para superar las disparidades económicas entre regiones.\
-     @foray2014 menciona que esta no es una especialización conocida en una región especifica, sino un proceso de diversificación concentrado a partir de tres elementos: i) diversificación relacionada, concentración de actividades interconectadas capaces de generar sinergias; ii) aprovechamiento de ventajas comparativas, identificación de sectores estratégicos para potenciar capacidades y conocimientos; y iii) desarrollo de regiones menos favorecidas, no sólo fortalecen las regiones núcleo, sino también las demás regiones.\
-     De aquí la importancia de comparar y evaluar los indicadores que midan el nivel de especialización y diversificación a nivel regional. Por tanto, el presente trabajo tiene el objetivo de analizar las ventajas y desventajas de los indicadores dedicados a la medición de la especialización y diversificación económica.\
+La especialización económica de una región hace referencia a la concentración de actividades en las que se posee ventajas comparativas. Si bien la especialización mejora le eficiencia de la actividad, permite alcanzar economías de escala y fortalece la competitividad a través de la formación de clústeres. Una excesiva dependencia en sectores especializados puede incrementar la vulnerabilidad de la economía regional ante cambios en el mercado o cambios tecnológicos [@krugman1991].\
+En contraparte, se tiene la diversificación económica, principalmente asociada a la resiliencia económica, ya que son menos susceptibles a choques externos al no depender de un único sector [@imbs2003]. @hausmann2014 mencionan que las regiones que tienen una economía diversificada tienen una mayor capacidad de adaptación frente a los cambios estructurales del mercado mundial debido a que la diversificación fomenta la innovación, al crear entornos de competencia e intercambio de conocimientos entre sectores.\
+En el caso de México, @Hirsch2018 destacan que no existen diferencias significativas en el PIB per cápita entre entidades diversificadas y especializadas, sin embargo, los estados diversificados muestran tasas de crecimiento sostenidas. En este contexto, se introduce la especialización inteligente como una herramienta para superar las disparidades económicas entre regiones.\
+@foray2014 menciona que esta no es una especialización conocida en una región especifica, sino un proceso de diversificación concentrado a partir de tres elementos: i) diversificación relacionada, concentración de actividades interconectadas capaces de generar sinergias; ii) aprovechamiento de ventajas comparativas, identificación de sectores estratégicos para potenciar capacidades y conocimientos; y iii) desarrollo de regiones menos favorecidas, no sólo fortalecen las regiones núcleo, sino también las demás regiones.\
+De aquí la importancia de comparar y evaluar los indicadores que midan el nivel de especialización y diversificación a nivel regional. Por tanto, el presente trabajo tiene el objetivo de analizar las ventajas y desventajas de los indicadores dedicados a la medición de la especialización y diversificación económica.\
+
      
 ### **1.Indicadores de especialización económica**
 
 #### *1.1. Coeficiente de localización económica (QL)*
+
+El coeficiente de localización económica (QL) es un indicador que permite identificar la concentración relativa de actividades productivas en un territorio determinado [@Carranco2010]. Su estimación se basa en la relación de dos cocientes, donde el numerador representa la participación de la variable x dentro de la misma variable en el total del territorio objetivo. Mientras que, el denominador es la misma participación, pero en el territorio de referencia. 
+Cuando el resultado del coeficiente es mayor a 1, indica que la actividad de interés tiene mayor importancia en la estructura productiva del territorio objetivo que en el de referencia, sugiriendo cierto nivel de especialización [@Garcia2008]. Si bien este coeficiente se utiliza frecuentemente con la variable empleo, como en los estudios de [@Garcia2008] y [@Godinez2010], su aplicación es versátil y puede estimar para diversas variables económicas. Matemáticamente el coeficiente QL se expresa como:\
 
 
 $$
@@ -40,6 +44,10 @@ $X_{Ref}$: total de la variable x en el territorio de referencia \
 
 
 #### *1.2. Coeficiente Hirshman-Herfindahl (HH)*\
+
+Habitualmente el índice Hirschman-Herfindahl es utilizado como una medida de concentración de mercado, específicamente en el análisis del grado de competencia entre las empresas en una industria especifica [@Church2000]. Por otro lado, el coeficiente Hirschman-Herfindahl modificado se utiliza para medir la concentración de alguna variable económica en una actividad económica dentro de un territorio objetivo respecto a uno de referencia.
+Este coeficiente evalúa la participación relativa de la variable económica de interés en la actividad económica dentro del territorio de referencia, a la cual s ele resta la participación de toda la economía del territorio objetivo en el territorio d referencia. De esta manera, si la actividad económica es más relevante que el resto de la actividad, el coeficiente obtendrá valores positivos e indicará cierto nivel de concentración. El coeficiente HH modificado se expresa como:
+
 
 $$ HH = {\frac{X_{ij}}{X_{iRef}} - \frac{X_j}{X_{Ref}}} $$
 Donde:\
