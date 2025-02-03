@@ -4,6 +4,7 @@ title: Ventajas y desventajas de los indicadores de especialización y diversifi
 author: "Leonardo Pérez Victorino"
 date: "2025-01-28"
 bibliography: Bibliografia.bib
+link-citations: TRUE
 csl: apa.csl
 output: html_document
 ---
@@ -29,7 +30,7 @@ De aquí la importancia de comparar y evaluar los indicadores que midan el nivel
 #### *1.1. Coeficiente de localización económica (QL)*
 
 El coeficiente de localización económica (QL) es un indicador que permite identificar la concentración relativa de actividades productivas en un territorio determinado [@Carranco2010]. Su estimación se basa en la relación de dos cocientes, donde el numerador representa la participación de la variable x dentro de la misma variable en el total del territorio objetivo. Mientras que, el denominador es la misma participación, pero en el territorio de referencia. 
-Cuando el resultado del coeficiente es mayor a 1, indica que la actividad de interés tiene mayor importancia en la estructura productiva del territorio objetivo que en el de referencia, sugiriendo cierto nivel de especialización [@Garcia2008]. Si bien este coeficiente se utiliza frecuentemente con la variable empleo, como en los estudios de [@Garcia2008] y [@Godinez2010], su aplicación es versátil y puede estimar para diversas variables económicas. Matemáticamente el coeficiente QL se expresa como:\
+Cuando el resultado del coeficiente es mayor a 1, indica que la actividad de interés tiene mayor importancia en la estructura productiva del territorio objetivo que en el de referencia, sugiriendo cierto nivel de especialización [@Garcia2008]. Si bien este coeficiente se utiliza frecuentemente con la variable empleo, como en los estudios de @Garcia2008 y @Godinez2010, su aplicación es versátil y puede estimar para diversas variables económicas. Matemáticamente el coeficiente QL se expresa como:\
 
 
 $$
@@ -46,7 +47,7 @@ $X_{Ref}$: total de la variable x en el territorio de referencia \
 #### *1.2. Coeficiente Hirshman-Herfindahl (HH)*\
 
 Habitualmente el índice Hirschman-Herfindahl es utilizado como una medida de concentración de mercado, específicamente en el análisis del grado de competencia entre las empresas en una industria especifica [@Church2000]. Por otro lado, el coeficiente Hirschman-Herfindahl modificado se utiliza para medir la concentración de alguna variable económica en una actividad económica dentro de un territorio objetivo respecto a uno de referencia.
-Este coeficiente evalúa la participación relativa de la variable económica de interés en la actividad económica dentro del territorio de referencia, a la cual s ele resta la participación de toda la economía del territorio objetivo en el territorio d referencia. De esta manera, si la actividad económica es más relevante que el resto de la actividad, el coeficiente obtendrá valores positivos e indicará cierto nivel de concentración. El coeficiente HH modificado se expresa como:
+Este coeficiente evalúa la participación relativa de la variable económica de interés en la actividad económica dentro del territorio de referencia, a la cual se le resta la participación de toda la economía del territorio objetivo en el territorio d referencia. De esta manera, si la actividad económica es más relevante que el resto de la actividad, el coeficiente obtendrá valores positivos e indicará cierto nivel de concentración. El coeficiente HH modificado se expresa como:
 
 
 $$ HH = {\frac{X_{ij}}{X_{iRef}} - \frac{X_j}{X_{Ref}}} $$
@@ -58,6 +59,7 @@ $X_{Ref}$: total de la variable x en el territorio de referencia \
 
 #### **1.3. Coeficiente de Gini**
 
+De acuerdo con @Medina2001, el Coficiente de Gini deriva de la curva de Lorenz y se expresa con la fórmula de Brown. @Garcia2008 estimaron este coeficiente para analizar la distribución del empleo en actividades manugactureras, más que de concentración como el caso de los coeficinetes anteriores. Un valor cercano a 0 indica una distribución homogénea, mientras que un valor cercano a 1 indica una alta concnetración de pocos territorios. 
 
 $$
 Gini = 1 + \frac{1}{r} - \frac{2 \sum_{j=i}^{n} ac(x_{ij})}{r^2 \mu}
