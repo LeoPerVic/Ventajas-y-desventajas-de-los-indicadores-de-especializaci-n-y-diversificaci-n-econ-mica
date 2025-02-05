@@ -109,5 +109,27 @@ $$
 H_g = \sum_{i \in S_g} \left( \frac{p_i}{P_g} \log_2 \left( \frac{1}{\frac{p_i}{P_g}} \right) \right)
 $$
 
+#### **3.Estimación de indicadores**\
+La estimación de los indicadores de especialización y diversificación económica se realiza a través del software RStudio, utilizando como fuente principal de información los Censos Económicos del @INEGI2019. Para el cálculo de los indicadores, se seleccionaron el siguiente conjunto de variables:
+
+<div style="text-align: center">  <div/>
+Tabla 1. Variables de interés para la estimación de indicadores de especialización y diversificación económica
+
+| Variable                        | Nemónico |
+|---------------------------------|----------|
+| Unidades económica              | ue       |
+| Personal ocupado total          | po       |
+| Remuneraciones totales          | re       |
+| Producción bruta total          | pb       |
+| Valor agregado censal bruto     | va       |
+| Formación bruta de capital fijo | fb       |
+| Acervo total de activos fijos   | af       |
+<div style="text-align: left">  <div/>
+Fuente: elaboración propia con datos del @INEGI2019.\
+############## Las variables re, pb, va, fb y af están en millones de pesos.
+\
+<div style="text-align: justify">  <div/>
+#### *3.1.Indicadores de especialización económica*
+
 
 ### **Bibliografía**
