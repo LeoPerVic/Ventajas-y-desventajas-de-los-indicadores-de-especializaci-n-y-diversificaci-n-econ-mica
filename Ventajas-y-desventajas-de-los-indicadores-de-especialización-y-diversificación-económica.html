@@ -560,7 +560,9 @@ H_g = \sum_{i \in S_g} \left( \frac{p_i}{P_g} \log_2 \left(
 económica se realiza a través del software RStudio, utilizando como
 fuente principal de información los Censos Económicos del <span class="citation">Instituto Nacional de Estadística y Geografía (INEGI)
 (<a href="#ref-INEGI2019">2019</a>)</span>. Para el cálculo de los
-indicadores, se seleccionaron el siguiente conjunto de variables:</p>
+indicadores, se seleccionaron el conjunto de variables de la Tabla 1.
+para cada uno de los 19 sectores económicos en las 32 entidades de
+México.</p>
 <div style="text-align: center">
 <div>
 <p>Tabla 1. Variables de interés para la estimación de indicadores de
@@ -607,16 +609,354 @@ especialización y diversificación económica</p>
 <div>
 Fuente: elaboración propia con datos del <span class="citation">Instituto Nacional de Estadística y Geografía (INEGI)
 (<a href="#ref-INEGI2019">2019</a>)</span>.<br />
-############## Las variables re, pb, va, fb y af están en millones de
-pesos.<br />
+Las variables re, pb, va, fb y af están en millones de pesos.<br />
+<br />
 
 <div style="text-align: justify">
 <div>
+<p>Para comenzar la información descargada es necesario realizar una
+pequeña depuración y procesamiento de datos por medio de excel de tal
+manera que la información quede como en la Tabla 2. En esa tabla tenemos
+en el encabezado el año de interés, el nombre de entidad (nom_ent),
+clave de entidad (cve_ent), clave de sector (cve_sec) y el conjunto de
+variables de interés. Este conjunto te información corresponde a los 19
+sectores en cada entidad en un formato de base larga.<br />
+</p>
+<div style="text-align: center">
+<div>
+<p>Tabla 2. Ejemplo de base larga</p>
+<table>
+<colgroup>
+<col width="4%" />
+<col width="16%" />
+<col width="6%" />
+<col width="6%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>año</th>
+<th>nom_ent</th>
+<th>cve_ent</th>
+<th>cve_sec</th>
+<th>ue</th>
+<th>po</th>
+<th>re</th>
+<th>pb</th>
+<th>va</th>
+<th>fb</th>
+<th>af</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2019</td>
+<td>Aguascalientes</td>
+<td>01</td>
+<td>11</td>
+<td>valor 1_11</td>
+<td>valor 2_11</td>
+<td>valor 3_11</td>
+<td>valor 4_11</td>
+<td>valor 5_11</td>
+<td>valor 6_11</td>
+<td>valor 7_11</td>
+</tr>
+<tr class="even">
+<td>2019</td>
+<td>Baja California</td>
+<td>02</td>
+<td>11</td>
+<td>valor 1_11</td>
+<td>valor 2_11</td>
+<td>valor 3_11</td>
+<td>valor 4_12</td>
+<td>valor 5_12</td>
+<td>valor 6_12</td>
+<td>valor 7_12</td>
+</tr>
+<tr class="odd">
+<td>2019</td>
+<td>Baja California Sur</td>
+<td>03</td>
+<td>11</td>
+<td>valor 1_11</td>
+<td>valor 2_11</td>
+<td>valor 3_11</td>
+<td>valor 4_13</td>
+<td>valor 5_13</td>
+<td>valor 6_13</td>
+<td>valor 7_13</td>
+</tr>
+<tr class="even">
+<td>2019</td>
+<td>Campeche</td>
+<td>04</td>
+<td>11</td>
+<td>valor 1_11</td>
+<td>valor 2_11</td>
+<td>valor 3_11</td>
+<td>valor 4_14</td>
+<td>valor 5_14</td>
+<td>valor 6_14</td>
+<td>valor 7_14</td>
+</tr>
+<tr class="odd">
+<td>2019</td>
+<td>Coahuila de Zaragoza</td>
+<td>05</td>
+<td>11</td>
+<td>valor 1_11</td>
+<td>valor 2_11</td>
+<td>valor 3_11</td>
+<td>valor 4_15</td>
+<td>valor 5_15</td>
+<td>valor 6_15</td>
+<td>valor 7_15</td>
+</tr>
+<tr class="even">
+<td>2019</td>
+<td>Aguascalientes</td>
+<td>01</td>
+<td>21</td>
+<td>valor 1_21</td>
+<td>valor 2_21</td>
+<td>valor 3_21</td>
+<td>valor 4_21</td>
+<td>valor 5_21</td>
+<td>valor 6_21</td>
+<td>valor 7_21</td>
+</tr>
+<tr class="odd">
+<td>2019</td>
+<td>Baja California</td>
+<td>02</td>
+<td>21</td>
+<td>valor 1_21</td>
+<td>valor 2_21</td>
+<td>valor 3_21</td>
+<td>valor 4_21</td>
+<td>valor 5_21</td>
+<td>valor 6_21</td>
+<td>valor 7_21</td>
+</tr>
+<tr class="even">
+<td>2019</td>
+<td>Baja California Sur</td>
+<td>03</td>
+<td>21</td>
+<td>valor 1_21</td>
+<td>valor 2_21</td>
+<td>valor 3_21</td>
+<td>valor 4_21</td>
+<td>valor 5_21</td>
+<td>valor 6_21</td>
+<td>valor 7_21</td>
+</tr>
+<tr class="odd">
+<td>2019</td>
+<td>Campeche</td>
+<td>04</td>
+<td>21</td>
+<td>valor 1_21</td>
+<td>valor 2_21</td>
+<td>valor 3_21</td>
+<td>valor 4_21</td>
+<td>valor 5_21</td>
+<td>valor 6_21</td>
+<td>valor 7_21</td>
+</tr>
+<tr class="even">
+<td>2019</td>
+<td>Coahuila de Zaragoza</td>
+<td>05</td>
+<td>21</td>
+<td>valor 1_21</td>
+<td>valor 2_21</td>
+<td>valor 3_21</td>
+<td>valor 4_21</td>
+<td>valor 5_21</td>
+<td>valor 6_21</td>
+<td>valor 7_21</td>
+</tr>
+</tbody>
+</table>
+<div style="text-align: left">
+<div>
+<p>Fuente: elaboración propia con datos del <span class="citation">Instituto Nacional de Estadística y Geografía (INEGI)
+(<a href="#ref-INEGI2019">2019</a>)</span>.</p>
+<p><br />
+</p>
+<div style="text-align: justify">
+<div>
+<p>Una vez que se haya procesado la base de datos en formato largo con
+la información necesaria para estimar los distintos indicadores, se
+cargara en <strong>RStudio</strong> utilizando la paquetería
+<code>readxl</code>. Para ello, se llama a la paquetería y se crea un
+objeto denominado <code>datos</code>, que contiene la información de la
+hoja “Base Larga” del archivo <code>Base.xlsx</code>.</p>
+<pre class="r"><code>library(readxl)
+datos &lt;- read_excel(&quot;Base.xlsx&quot;, sheet = &quot;Base Larga&quot;)</code></pre>
 <div id="indicadores-de-especialización-económica-1" class="section level4">
 <h4><em>3.1.Indicadores de especialización económica</em></h4>
+<p>Para la estimación de los coeficientes QL y HH modificado, es
+necesario establecer el terriotorio objetivo y el territorio de
+referencia. En este ejercicio el territorio objetivo correspondera a
+cada una de las 32 entidades federativas, mientras que el territorio de
+referencia será el total nacional. Posteriormente se puede observara que
+las formulas de los coeficientes contienen cuatro principales vectores
+de datos, por lo que se crearan 4 objetos que contengan esos vectores de
+interés. Los dos primeros vectores corresponden al territorio objetivo,
+mientras que los últimos dos son del territorio de refrencia.Para crear
+los vectores se utiliza la paqueteria <code>dplyr</code>, por lo que se
+llama a la paqueteria.<br />
+</p>
+<pre class="r"><code>library(dplyr)</code></pre>
+<p>El primer vector corresponde a la información de la base larga,
+agrupandola por <code>cve_ent</code>, <code>cve_sec</code> y
+<code>nom_ent</code>, quitando la columna de año. Es decir, es la
+información de cada sector en cada entidad federativa. Este vector se
+denomina <code>sec_ent</code>.</p>
+<pre class="r"><code>sec_ent &lt;- datos %&gt;% group_by(cve_ent, cve_sec, nom_ent) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                              re = sum(re, na.rm = TRUE),
+                                                              pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                              va = sum(as.numeric(va), na.rm = TRUE),
+                                                              fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                              af = sum(as.numeric(af), na.rm = TRUE),
+                                                              po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+<p>El segundo vector corresponde a al total de la actividad económica de
+cada entidad, por lo que la información se agrupa por
+<code>cve_ent</code>, y <code>nom_ent</code>. Este vector se denomina
+<code>tot_ent</code>.</p>
+<pre class="r"><code>tot_ent &lt;- datos %&gt;% group_by(cve_ent, nom_ent) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                                     re = sum(re, na.rm = TRUE),
+                                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                                     va = sum(as.numeric(va), na.rm = TRUE),
+                                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                                     af = sum(as.numeric(af), na.rm = TRUE),
+                                                                     po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+<p>El tercer vector correponde a la información de cada sector en el
+total nacional, por lo que se suma la información agrupando por
+<code>cve_sec</code>. Este vector se denomina <code>sec_nac</code>.</p>
+<pre class="r"><code>sec_nac &lt;- datos %&gt;% group_by(cve_sec) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                                       re = sum(re, na.rm = TRUE),
+                                                                       pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                                       va = sum(as.numeric(va), na.rm = TRUE),
+                                                                       fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                                       af = sum(as.numeric(af), na.rm = TRUE),
+                                                                       po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+<p>El cuarto y último vector hace referencia al total de actividad
+económica a nivel nacional, por lo que se suma la información del vector
+<code>sec_nac</code>. Este vector se denomina <code>tot_nac</code>.</p>
+<pre class="r"><code>tot_nac &lt;- sec_nac %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                     re = sum(re, na.rm = TRUE),
+                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                     va = sum(as.numeric(va), na.rm = TRUE),
+                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                     af = sum(as.numeric(af), na.rm = TRUE),
+                                                     po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+</div>
+<div id="estimación-del-coeficiente-ql" class="section level4">
+<h4><em>3.1.1. Estimación del coeficiente QL</em></h4>
+<p>Este coeficiente esta conformado por dos participaciones relativas,
+el numerador correponde de la participación de los sectores de cada
+entidad en el total de la actividad económica de la entidad, mientras
+que, el denominador es la participación de cada scetor a nivel nacional
+enel total de la actividad económica del país. Para la primer
+participación relativa se crea un objeto que se llame
+<code>numerador</code> a través de la función <code>left_join</code> de
+la paqueteria <code>dplyr</code>, esta función une los vectores
+<code>sec_ent</code> y <code>tot_ent</code> a través de las variables
+<code>cve_ent</code> y <code>nom_ent</code>. Posteriormente, se realiza
+la operación de división entre las variables del primer vector (x) y del
+segundo (y), dando como resultado la participación relativa antes
+mencionada con los dtaos del vector <code>sec_ent</code>.</p>
+<pre class="r"><code>numerador &lt;- left_join(sec_ent, tot_ent, by = c(&quot;cve_ent&quot; = &quot;cve_ent&quot;,  &quot;nom_ent&quot; = &quot;nom_ent&quot;)) %&gt;% 
+  mutate(ue = ue.x/ue.y,
+         re = re.x/re.y,
+         pb = pb.x/pb.y,
+         va = va.x/va.y,
+         fb = fb.x/fb.y,
+         af = af.x/af.y,
+         po = po.x/po.y) %&gt;% 
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+<p>Para el denominador se crea el objeto <code>denominador</code> con el
+vector <code>sec_nac</code>. Posteriormente, cada variable de interés se
+sobreescribe dividiendo las variables del vector <code>sec_nac</code>
+entre las del vector <code>tot_nac</code>.</p>
+<pre class="r"><code># Dividir las columnas de `sec_nac` por los totales de `tot_nac`
+
+denominador &lt;- sec_nac
+
+# Aplicar la división para cada columna correspondiente
+
+denominador$ue &lt;- sec_nac$ue / tot_nac$ue
+denominador$re &lt;- sec_nac$re / tot_nac$re
+denominador$pb &lt;- sec_nac$pb / tot_nac$pb
+denominador$va &lt;- sec_nac$va / tot_nac$va
+denominador$fb &lt;- sec_nac$fb / tot_nac$fb
+denominador$af &lt;- sec_nac$af / tot_nac$af
+denominador$po &lt;- sec_nac$po / tot_nac$po</code></pre>
+<p>Una vex tengamos tanto el numerador y denominador, se crea un objeto
+denominado <code>QL</code> a través de la función <code>dplyr</code>, el
+cual une los objetos <code>numerador</code> y <code>denominador</code> a
+través de <code>cve_sec</code>. Una vez unidos se realiza la división
+correspondiente para obtener el coeficiente de cada variable para cada
+sector de las 32 entidades federativas.</p>
+<pre class="r"><code># Unir numerador y denominador por cve_sec
+
+QL &lt;- left_join(numerador, denominador, by = c(&quot;cve_sec&quot;))
+
+# Dividir cada variable de numerador entre la variable correspondiente de denominador
+
+QL &lt;- QL %&gt;% 
+  mutate(QLue = ue.x/ue.y,
+         QLre = re.x/re.y,
+         QLpb = pb.x/pb.y,
+         QLva = va.x/va.y,
+         QLfb = fb.x/fb.y,
+         QLaf = af.x/af.y,
+         QLpo = po.x/po.y) %&gt;% 
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+</div>
+<div id="estimación-del-coeficiente-hh-modificado" class="section level4">
+<h4><em>3.1.2. Estimación del coeficiente HH modificado</em></h4>
+<p>La estimación del HH modificado sigue la misma lógica del QL. Primero
+se tiene que estimar la participación relativa de cada sector en cada
+entidad dentro de cada sector en el total nacional. Posteriormente, se
+estima la participación relativa de cada sector a nivel nacional en el
+total de la actividad económica del país. Por tanto, primero se crea el
+objeto <code>Cociente_1</code> el cual contiene la primera participación
+relativa mencionada, esto se crea a través de la paqueteria
+<code>dplyr</code> al unir <code>sec_ent</code>y <code>sec_nac</code>
+por medio de <code>cve_sec</code>. Una vez esten unidos se realiza el
+cociente correpondiente.</p>
+<pre class="r"><code>Cociente_1 &lt;- sec_ent %&gt;% 
+  left_join(sec_nac, by = c(&quot;cve_sec&quot;)) %&gt;% 
+  mutate(ue = ue.x/ue.y,
+         re = re.x/re.y,
+         pb = pb.x/pb.y,
+         va = va.x/va.y,
+         fb = fb.x/fb.y,
+         af = af.x/af.y,
+         po = po.x/po.y) %&gt;% 
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+<p>para</p>
 </div>
 <div id="bibliografía" class="section level3">
 <h3><strong>Bibliografía</strong></h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
