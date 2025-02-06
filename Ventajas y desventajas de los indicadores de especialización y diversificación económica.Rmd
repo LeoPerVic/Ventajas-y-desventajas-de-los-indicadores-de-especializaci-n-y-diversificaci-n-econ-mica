@@ -174,6 +174,17 @@ El primer vector corresponde a la información de la base larga, agrupandola por
 
 ```{r}
 sec_ent <- datos %>% group_by(cve_ent, cve_sec, nom_ent) %>% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                                       re = sum(re, na.rm = TRUE),
+                                                                       pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                                       va = sum(as.numeric(va), na.rm = TRUE),
+                                                                       fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                                       af = sum(as.numeric(af), na.rm = TRUE),
+                                                                       po = sum(as.numeric(po), na.rm = TRUE))
+```
+El segundo vector corresponde a al total de la actividad económica de cada entidad, por lo que la información se agrupa por `cve_ent`,  y `nom_ent`. Este vector se denomina `tot_ent`.
+
+```{r}
+tot_ent <- datos %>% group_by(cve_ent, nom_ent) %>% summarize(ue = sum(ue, na.rm = TRUE), 
                                                               re = sum(re, na.rm = TRUE),
                                                               pb = sum(as.numeric(pb), na.rm = TRUE), 
                                                               va = sum(as.numeric(va), na.rm = TRUE),
@@ -181,27 +192,16 @@ sec_ent <- datos %>% group_by(cve_ent, cve_sec, nom_ent) %>% summarize(ue = sum(
                                                               af = sum(as.numeric(af), na.rm = TRUE),
                                                               po = sum(as.numeric(po), na.rm = TRUE))
 ```
-El segundo vector corresponde a al total de la actividad económica de cada entidad, por lo que la información se agrupa por `cve_ent`,  y `nom_ent`. Este vector se denomina `tot_ent`.
-
-```{r}
-tot_ent <- datos %>% group_by(cve_ent, nom_ent) %>% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                                     re = sum(re, na.rm = TRUE),
-                                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                                     va = sum(as.numeric(va), na.rm = TRUE),
-                                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                                     af = sum(as.numeric(af), na.rm = TRUE),
-                                                                     po = sum(as.numeric(po), na.rm = TRUE))
-```
 El tercer vector correponde a la información de cada sector en el total nacional, por lo que se suma la información agrupando por `cve_sec`. Este vector se denomina `sec_nac`.
 ```{r}
 
 sec_nac <- datos %>% group_by(cve_sec) %>% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                                       re = sum(re, na.rm = TRUE),
-                                                                       pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                                       va = sum(as.numeric(va), na.rm = TRUE),
-                                                                       fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                                       af = sum(as.numeric(af), na.rm = TRUE),
-                                                                       po = sum(as.numeric(po), na.rm = TRUE))
+                                                              re = sum(re, na.rm = TRUE),
+                                                              pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                              va = sum(as.numeric(va), na.rm = TRUE),
+                                                              fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                              af = sum(as.numeric(af), na.rm = TRUE),
+                                                              po = sum(as.numeric(po), na.rm = TRUE))
 
 ```
 
@@ -209,12 +209,12 @@ El cuarto y último vector hace referencia al total de actividad económica a ni
 
 ```{r}
 tot_nac <- sec_nac %>% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                     re = sum(re, na.rm = TRUE),
-                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                     va = sum(as.numeric(va), na.rm = TRUE),
-                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                     af = sum(as.numeric(af), na.rm = TRUE),
-                                                     po = sum(as.numeric(po), na.rm = TRUE))
+                                          re = sum(re, na.rm = TRUE),
+                                          pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                          va = sum(as.numeric(va), na.rm = TRUE),
+                                          fb = sum(as.numeric(fb), na.rm = TRUE),
+                                          af = sum(as.numeric(af), na.rm = TRUE),
+                                          po = sum(as.numeric(po), na.rm = TRUE))
 ```
 #### *3.1.1. Estimación del coeficiente QL*
 
@@ -272,6 +272,8 @@ QL <- QL %>%
          QLpo = po.x/po.y) %>% 
   select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
 
+# Muestra los resultados del coeficiente QL
+print(QL)
 ```
 
 #### *3.1.2. Estimación del coeficiente HH modificado*
@@ -320,6 +322,9 @@ HH <- Cociente_1 %>%
          HHaf = af.x-af.y,
          HHpo = po.x-po.y) %>% 
   select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
+
+# Muestra los resultados del coeficiente HH modificado
+print(HH)
 ```
 
 #### *3.1.3. Estimación del coeficiente de Gini*
@@ -339,25 +344,34 @@ gini_sector <- datos %>%
 # Muestra los resultados del coeficiente de Gini
 print(gini_sector)
 ```
-Para el segundo caso, la estimación del coeficiente de Gini para el conjunto de 32 entidades federativas requiere filtrar los datos y escoger el sector de interés. Se crea un objeto llamado`datos_31_32` que contiene los datos del sector manufacturero y posteriormente se calcula el coeficiente de gini agrupando por `nom_ent`.
+Para el segundo caso, la estimación del coeficiente de Gini para el conjunto de 32 entidades federativas requiere filtrar los datos y escoger un coonjunto de sectores de interés. Se crea un objeto llamado`datos_filtrados` que contiene los datos de los sectores considerados en los servicios, los cuales excluyen la manufactura y actividades primarias. Posteriormente se calcula el coeficiente de gini agrupando por `nom_ent`.
 
 ```{r}
-# Filtrar solo los registros donde sve_sec es "31-33"
-datos_31_33 <- datos %>% filter(cve_sec == "31-33")
+# Extraer las observaciones de interés en un nuevo objeto
+
+datos_filtrados <- datos[!(datos$cve_sec %in% c("11", "21", "22", "23", "31-33")), ]
 
 # Calcular el índice de Gini por entidad
-gini_entidad <- datos_31_33 %>%
+gini_entidad <- datos_filtrados%>%
   group_by(nom_ent) %>%
-  summarise(gini = Gini(po,  na.rm = TRUE))
+  summarise(gini = Gini(po, na.rm = TRUE))
 
 # Muestra los resultados del coeficiente de Gini
 print(gini_entidad)
 ```
+#### *3.2.Indicadores de diversificación económica*\
 
+#### *3.2.1. Inverso del Coeficiente de Hirshman-Herfindahl (IHH)*\
+
+Para la estimaión del inverso del coeficiente del Hirschman-Herfindahl modficado sólo basta con resta
 ```{r}
+IHH <- HH %>%
+  mutate_at(vars(HHue, HHre, HHpb, HHva, HHfb, HHaf, HHpo), ~ 1 - .) %>%
+  rename_with(~ paste0("IHH", gsub("HH", "", .)), starts_with("HH"))
 
+print(IHH)
 ```
-
+#### *3.2.1. Idice de la ojiva*\
 
 
 

@@ -824,43 +824,43 @@ agrupandola por <code>cve_ent</code>, <code>cve_sec</code> y
 información de cada sector en cada entidad federativa. Este vector se
 denomina <code>sec_ent</code>.</p>
 <pre class="r"><code>sec_ent &lt;- datos %&gt;% group_by(cve_ent, cve_sec, nom_ent) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                              re = sum(re, na.rm = TRUE),
-                                                              pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                              va = sum(as.numeric(va), na.rm = TRUE),
-                                                              fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                              af = sum(as.numeric(af), na.rm = TRUE),
-                                                              po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
-<p>El segundo vector corresponde a al total de la actividad económica de
-cada entidad, por lo que la información se agrupa por
-<code>cve_ent</code>, y <code>nom_ent</code>. Este vector se denomina
-<code>tot_ent</code>.</p>
-<pre class="r"><code>tot_ent &lt;- datos %&gt;% group_by(cve_ent, nom_ent) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                                     re = sum(re, na.rm = TRUE),
-                                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                                     va = sum(as.numeric(va), na.rm = TRUE),
-                                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                                     af = sum(as.numeric(af), na.rm = TRUE),
-                                                                     po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
-<p>El tercer vector correponde a la información de cada sector en el
-total nacional, por lo que se suma la información agrupando por
-<code>cve_sec</code>. Este vector se denomina <code>sec_nac</code>.</p>
-<pre class="r"><code>sec_nac &lt;- datos %&gt;% group_by(cve_sec) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
                                                                        re = sum(re, na.rm = TRUE),
                                                                        pb = sum(as.numeric(pb), na.rm = TRUE), 
                                                                        va = sum(as.numeric(va), na.rm = TRUE),
                                                                        fb = sum(as.numeric(fb), na.rm = TRUE),
                                                                        af = sum(as.numeric(af), na.rm = TRUE),
                                                                        po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+<p>El segundo vector corresponde a al total de la actividad económica de
+cada entidad, por lo que la información se agrupa por
+<code>cve_ent</code>, y <code>nom_ent</code>. Este vector se denomina
+<code>tot_ent</code>.</p>
+<pre class="r"><code>tot_ent &lt;- datos %&gt;% group_by(cve_ent, nom_ent) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                              re = sum(re, na.rm = TRUE),
+                                                              pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                              va = sum(as.numeric(va), na.rm = TRUE),
+                                                              fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                              af = sum(as.numeric(af), na.rm = TRUE),
+                                                              po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+<p>El tercer vector correponde a la información de cada sector en el
+total nacional, por lo que se suma la información agrupando por
+<code>cve_sec</code>. Este vector se denomina <code>sec_nac</code>.</p>
+<pre class="r"><code>sec_nac &lt;- datos %&gt;% group_by(cve_sec) %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
+                                                              re = sum(re, na.rm = TRUE),
+                                                              pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                                              va = sum(as.numeric(va), na.rm = TRUE),
+                                                              fb = sum(as.numeric(fb), na.rm = TRUE),
+                                                              af = sum(as.numeric(af), na.rm = TRUE),
+                                                              po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
 <p>El cuarto y último vector hace referencia al total de actividad
 económica a nivel nacional, por lo que se suma la información del vector
 <code>sec_nac</code>. Este vector se denomina <code>tot_nac</code>.</p>
 <pre class="r"><code>tot_nac &lt;- sec_nac %&gt;% summarize(ue = sum(ue, na.rm = TRUE), 
-                                                     re = sum(re, na.rm = TRUE),
-                                                     pb = sum(as.numeric(pb), na.rm = TRUE), 
-                                                     va = sum(as.numeric(va), na.rm = TRUE),
-                                                     fb = sum(as.numeric(fb), na.rm = TRUE),
-                                                     af = sum(as.numeric(af), na.rm = TRUE),
-                                                     po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
+                                          re = sum(re, na.rm = TRUE),
+                                          pb = sum(as.numeric(pb), na.rm = TRUE), 
+                                          va = sum(as.numeric(va), na.rm = TRUE),
+                                          fb = sum(as.numeric(fb), na.rm = TRUE),
+                                          af = sum(as.numeric(af), na.rm = TRUE),
+                                          po = sum(as.numeric(po), na.rm = TRUE))</code></pre>
 </div>
 <div id="estimación-del-coeficiente-ql" class="section level4">
 <h4><em>3.1.1. Estimación del coeficiente QL</em></h4>
@@ -923,7 +923,25 @@ QL &lt;- QL %&gt;%
          QLfb = fb.x/fb.y,
          QLaf = af.x/af.y,
          QLpo = po.x/po.y) %&gt;% 
-  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
+
+# Muestra los resultados del coeficiente QL
+print(QL)</code></pre>
+<pre><code>## # A tibble: 604 × 10
+## # Groups:   cve_ent, cve_sec [604]
+##    cve_ent cve_sec nom_ent        QLue   QLre   QLpb   QLva   QLfb   QLaf   QLpo
+##    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 01      11      Aguascalien… 0.0547 0.0464 0.0102 0.0184 0.0323 0.0228 0.0346
+##  2 01      21      Aguascalien… 0.987  0.234  0.0300 0.0263 0      0.0454 0.562 
+##  3 01      22      Aguascalien… 0.440  0      0      0      0      0      0     
+##  4 01      23      Aguascalien… 1.70   1.50   1.62   2.37   3.12   1.87   1.46  
+##  5 01      31-33   Aguascalien… 0.929  1.47   1.59   1.99   1.82   1.94   1.31  
+##  6 01      43      Aguascalien… 1.23   0.984  0.856  1.10   2.02   0.839  0.997 
+##  7 01      46      Aguascalien… 0.948  1.19   1.01   1.23   2.28   0.948  0.933 
+##  8 01      48-49   Aguascalien… 1.35   0.657  0.795  1.04   0.639  0.649  0.739 
+##  9 01      51      Aguascalien… 0.966  0.359  0.271  0.212  0.0839 0.347  0.417 
+## 10 01      52      Aguascalien… 0.815  0.0592 0.0393 0.0315 0.695  0.0700 0.142 
+## # ℹ 594 more rows</code></pre>
 </div>
 <div id="estimación-del-coeficiente-hh-modificado" class="section level4">
 <h4><em>3.1.2. Estimación del coeficiente HH modificado</em></h4>
@@ -979,7 +997,26 @@ entidades federativas.</p>
          HHfb = fb.x-fb.y,
          HHaf = af.x-af.y,
          HHpo = po.x-po.y) %&gt;% 
-  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
+
+# Muestra los resultados del coeficiente HH modificado
+print(HH)</code></pre>
+<pre><code>## # A tibble: 604 × 11
+## # Groups:   cve_ent, cve_sec [604]
+##    cve_ent cve_sec nom_ent.x      nom_ent.y      HHue     HHre     HHpb     HHva
+##    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+##  1 01      11      Aguascalientes Aguascali… -1.06e-2 -1.05e-2 -1.13e-2 -8.72e-3
+##  2 01      21      Aguascalientes Aguascali… -1.41e-4 -8.46e-3 -1.11e-2 -8.65e-3
+##  3 01      22      Aguascalientes Aguascali… -6.27e-3 -1.10e-2 -1.14e-2 -8.88e-3
+##  4 01      23      Aguascalientes Aguascali…  7.85e-3  5.47e-3  7.04e-3  1.22e-2
+##  5 01      31-33   Aguascalientes Aguascali… -7.99e-4  5.21e-3  6.78e-3  8.83e-3
+##  6 01      43      Aguascalientes Aguascali…  2.58e-3 -1.72e-4 -1.65e-3  8.48e-4
+##  7 01      46      Aguascalientes Aguascali… -5.85e-4  2.12e-3  9.26e-5  2.09e-3
+##  8 01      48-49   Aguascalientes Aguascali…  3.87e-3 -3.78e-3 -2.35e-3  3.74e-4
+##  9 01      51      Aguascalientes Aguascali… -3.81e-4 -7.08e-3 -8.34e-3 -7.00e-3
+## 10 01      52      Aguascalientes Aguascali… -2.07e-3 -1.04e-2 -1.10e-2 -8.60e-3
+## # ℹ 594 more rows
+## # ℹ 3 more variables: HHfb &lt;dbl&gt;, HHaf &lt;dbl&gt;, HHpo &lt;dbl&gt;</code></pre>
 </div>
 <div id="estimación-del-coeficiente-de-gini" class="section level4">
 <h4><em>3.1.3. Estimación del coeficiente de Gini</em></h4>
@@ -1027,34 +1064,67 @@ print(gini_sector)</code></pre>
 ## 19 81      0.444</code></pre>
 <p>Para el segundo caso, la estimación del coeficiente de Gini para el
 conjunto de 32 entidades federativas requiere filtrar los datos y
-escoger el sector de interés. Se crea un objeto
-llamado<code>datos_31_32</code> que contiene los datos del sector
-manufacturero y posteriormente se calcula el coeficiente de gini
-agrupando por <code>nom_ent</code>.</p>
-<pre class="r"><code># Filtrar solo los registros donde sve_sec es &quot;31-33&quot;
-datos_31_33 &lt;- datos %&gt;% filter(cve_sec == &quot;31-33&quot;)
+escoger un coonjunto de sectores de interés. Se crea un objeto
+llamado<code>datos_filtrados</code> que contiene los datos de los
+sectores considerados en los servicios, los cuales excluyen la
+manufactura y actividades primarias. Posteriormente se calcula el
+coeficiente de gini agrupando por <code>nom_ent</code>.</p>
+<pre class="r"><code># Extraer las observaciones de interés en un nuevo objeto
+
+datos_filtrados &lt;- datos[!(datos$cve_sec %in% c(&quot;11&quot;, &quot;21&quot;, &quot;22&quot;, &quot;23&quot;, &quot;31-33&quot;)), ]
 
 # Calcular el índice de Gini por entidad
-gini_entidad &lt;- datos_31_33 %&gt;%
+gini_entidad &lt;- datos_filtrados%&gt;%
   group_by(nom_ent) %&gt;%
-  summarise(gini = Gini(po,  na.rm = TRUE))
+  summarise(gini = Gini(po, na.rm = TRUE))
 
 # Muestra los resultados del coeficiente de Gini
 print(gini_entidad)</code></pre>
 <pre><code>## # A tibble: 32 × 2
 ##    nom_ent               gini
 ##    &lt;chr&gt;                &lt;dbl&gt;
-##  1 Aguascalientes           0
-##  2 Baja California          0
-##  3 Baja California Sur      0
-##  4 Campeche                 0
-##  5 Chiapas                  0
-##  6 Chihuahua                0
-##  7 Ciudad de México         0
-##  8 Coahuila de Zaragoza     0
-##  9 Colima                   0
-## 10 Durango                  0
+##  1 Aguascalientes       0.536
+##  2 Baja California      0.555
+##  3 Baja California Sur  0.588
+##  4 Campeche             0.555
+##  5 Chiapas              0.614
+##  6 Chihuahua            0.563
+##  7 Ciudad de México     0.378
+##  8 Coahuila de Zaragoza 0.562
+##  9 Colima               0.549
+## 10 Durango              0.571
 ## # ℹ 22 more rows</code></pre>
+</div>
+<div id="indicadores-de-diversificación-económica" class="section level4">
+<h4><em>3.2.Indicadores de diversificación económica</em><br />
+</h4>
+</div>
+<div id="inverso-del-coeficiente-de-hirshman-herfindahl-ihh-1" class="section level4">
+<h4><em>3.2.1. Inverso del Coeficiente de Hirshman-Herfindahl
+(IHH)</em><br />
+</h4>
+<p>Para la estimaión del inverso del coeficiente del
+Hirschman-Herfindahl modficado sólo basta con resta</p>
+<pre class="r"><code>IHH &lt;- HH %&gt;%
+  mutate_at(vars(HHue, HHre, HHpb, HHva, HHfb, HHaf, HHpo), ~ 1 - .) %&gt;%
+  rename_with(~ paste0(&quot;IHH&quot;, gsub(&quot;HH&quot;, &quot;&quot;, .)), starts_with(&quot;HH&quot;))
+
+print(IHH)</code></pre>
+<pre><code>## # A tibble: 604 × 11
+## # Groups:   cve_ent, cve_sec [604]
+##    cve_ent cve_sec nom_ent.x nom_ent.y IHHue IHHre IHHpb IHHva IHHfb IHHaf IHHpo
+##    &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 01      11      Aguascal… Aguascal… 1.01  1.01  1.01  1.01  1.01  1.01  1.01 
+##  2 01      21      Aguascal… Aguascal… 1.00  1.01  1.01  1.01  1.01  1.01  1.01 
+##  3 01      22      Aguascal… Aguascal… 1.01  1.01  1.01  1.01  1.01  1.01  1.01 
+##  4 01      23      Aguascal… Aguascal… 0.992 0.995 0.993 0.988 0.988 0.989 0.994
+##  5 01      31-33   Aguascal… Aguascal… 1.00  0.995 0.993 0.991 0.995 0.988 0.996
+##  6 01      43      Aguascal… Aguascal… 0.997 1.00  1.00  0.999 0.994 1.00  1.00 
+##  7 01      46      Aguascal… Aguascal… 1.00  0.998 1.00  0.998 0.992 1.00  1.00 
+##  8 01      48-49   Aguascal… Aguascal… 0.996 1.00  1.00  1.00  1.00  1.00  1.00 
+##  9 01      51      Aguascal… Aguascal… 1.00  1.01  1.01  1.01  1.01  1.01  1.01 
+## 10 01      52      Aguascal… Aguascal… 1.00  1.01  1.01  1.01  1.00  1.01  1.01 
+## # ℹ 594 more rows</code></pre>
 </div>
 <div id="bibliografía" class="section level3">
 <h3><strong>Bibliografía</strong></h3>
