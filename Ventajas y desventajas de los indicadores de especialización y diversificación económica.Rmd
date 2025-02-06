@@ -324,30 +324,42 @@ HH <- Cociente_1 %>%
 
 #### *3.1.3. Estimación del coeficiente de Gini*
 
-Para estimar el coeficiente de Gini no tenemos que crear vectores propiamente, 
+Para estimar el coeficiente de Gini no tenemos que crear vectores y realizar las operaciones manualmente, sino que se utiliza la función `Gini` de la paqueteria `ineq`. Este coeficiente se puede estimar para un conjunto de delimitaciones territoriales o para actividades económicas. El primer paso es llamar a la paquteria `ineq`.
 
 ```{r}
 # Instalar e importar la paquetería ineq
 library(ineq)
 ```
-
+Posteriormente, se reliza dos ejemplos, el primero corresponde a estimar el coeficiente de Gini del personal ocupado (po) para los 19 sectores de la actividad económica. Para estimar este coeficiente se crea un objeto llamado `gini_sector` a partir de la base datos, pero se deben de agrupar por `cve_sec` y se estima el coeficiente de Gini del personal ocupado para cada sector.
 ```{r}
 # Calcular el índice de Gini por sector
-gini_por_sector <- datos %>%
+gini_sector <- datos %>%
   group_by(cve_sec) %>%
   summarise(gini = Gini(po, na.rm = TRUE))
+# Muestra los resultados del coeficiente de Gini
+print(gini_sector)
+```
+Para el segundo caso, la estimación del coeficiente de Gini para el conjunto de 32 entidades federativas requiere filtrar los datos y escoger el sector de interés. Se crea un objeto llamado`datos_31_32` que contiene los datos del sector manufacturero y posteriormente se calcula el coeficiente de gini agrupando por `nom_ent`.
 
-print(gini_por_sector)
+```{r}
+# Filtrar solo los registros donde sve_sec es "31-33"
+datos_31_33 <- datos %>% filter(cve_sec == "31-33")
+
+# Calcular el índice de Gini por entidad
+gini_entidad <- datos_31_33 %>%
+  group_by(nom_ent) %>%
+  summarise(gini = Gini(po,  na.rm = TRUE))
+
+# Muestra los resultados del coeficiente de Gini
+print(gini_entidad)
 ```
 
 ```{r}
-# Calcular el índice de Gini por entidad
-gini_por_entidad <- datos %>%
-  group_by(cve_ent) %>%
-  summarise(gini = Gini(po, na.rm = TRUE))
 
-print(gini_por_entidad)
 ```
+
+
+
 
 
 ### **Bibliografía**

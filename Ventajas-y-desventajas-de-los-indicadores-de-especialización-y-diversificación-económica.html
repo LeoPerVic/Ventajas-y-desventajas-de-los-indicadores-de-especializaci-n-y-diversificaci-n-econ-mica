@@ -983,16 +983,26 @@ entidades federativas.</p>
 </div>
 <div id="estimación-del-coeficiente-de-gini" class="section level4">
 <h4><em>3.1.3. Estimación del coeficiente de Gini</em></h4>
-<p>Para estimar el coeficiente de Gini no tenemos que crear vectores
-propiamente,</p>
+<p>Para estimar el coeficiente de Gini no tenemos que crear vectores y
+realizar las operaciones manualmente, sino que se utiliza la función
+<code>Gini</code> de la paqueteria <code>ineq</code>. Este coeficiente
+se puede estimar para un conjunto de delimitaciones territoriales o para
+actividades económicas. El primer paso es llamar a la paquteria
+<code>ineq</code>.</p>
 <pre class="r"><code># Instalar e importar la paquetería ineq
 library(ineq)</code></pre>
+<p>Posteriormente, se reliza dos ejemplos, el primero corresponde a
+estimar el coeficiente de Gini del personal ocupado (po) para los 19
+sectores de la actividad económica. Para estimar este coeficiente se
+crea un objeto llamado <code>gini_sector</code> a partir de la base
+datos, pero se deben de agrupar por <code>cve_sec</code> y se estima el
+coeficiente de Gini del personal ocupado para cada sector.</p>
 <pre class="r"><code># Calcular el índice de Gini por sector
-gini_por_sector &lt;- datos %&gt;%
+gini_sector &lt;- datos %&gt;%
   group_by(cve_sec) %&gt;%
   summarise(gini = Gini(po, na.rm = TRUE))
-
-print(gini_por_sector)</code></pre>
+# Muestra los resultados del coeficiente de Gini
+print(gini_sector)</code></pre>
 <pre><code>## # A tibble: 19 × 2
 ##    cve_sec  gini
 ##    &lt;chr&gt;   &lt;dbl&gt;
@@ -1015,25 +1025,35 @@ print(gini_por_sector)</code></pre>
 ## 17 71      0.471
 ## 18 72      0.417
 ## 19 81      0.444</code></pre>
-<pre class="r"><code># Calcular el índice de Gini por entidad
-gini_por_entidad &lt;- datos %&gt;%
-  group_by(cve_ent) %&gt;%
-  summarise(gini = Gini(po, na.rm = TRUE))
+<p>Para el segundo caso, la estimación del coeficiente de Gini para el
+conjunto de 32 entidades federativas requiere filtrar los datos y
+escoger el sector de interés. Se crea un objeto
+llamado<code>datos_31_32</code> que contiene los datos del sector
+manufacturero y posteriormente se calcula el coeficiente de gini
+agrupando por <code>nom_ent</code>.</p>
+<pre class="r"><code># Filtrar solo los registros donde sve_sec es &quot;31-33&quot;
+datos_31_33 &lt;- datos %&gt;% filter(cve_sec == &quot;31-33&quot;)
 
-print(gini_por_entidad)</code></pre>
+# Calcular el índice de Gini por entidad
+gini_entidad &lt;- datos_31_33 %&gt;%
+  group_by(nom_ent) %&gt;%
+  summarise(gini = Gini(po,  na.rm = TRUE))
+
+# Muestra los resultados del coeficiente de Gini
+print(gini_entidad)</code></pre>
 <pre><code>## # A tibble: 32 × 2
-##    cve_ent  gini
-##    &lt;chr&gt;   &lt;dbl&gt;
-##  1 01      0.632
-##  2 02      0.692
-##  3 03      0.537
-##  4 04      0.481
-##  5 05      0.662
-##  6 06      0.527
-##  7 07      0.571
-##  8 08      0.723
-##  9 09      0.441
-## 10 10      0.637
+##    nom_ent               gini
+##    &lt;chr&gt;                &lt;dbl&gt;
+##  1 Aguascalientes           0
+##  2 Baja California          0
+##  3 Baja California Sur      0
+##  4 Campeche                 0
+##  5 Chiapas                  0
+##  6 Chihuahua                0
+##  7 Ciudad de México         0
+##  8 Coahuila de Zaragoza     0
+##  9 Colima                   0
+## 10 Durango                  0
 ## # ℹ 22 more rows</code></pre>
 </div>
 <div id="bibliografía" class="section level3">
