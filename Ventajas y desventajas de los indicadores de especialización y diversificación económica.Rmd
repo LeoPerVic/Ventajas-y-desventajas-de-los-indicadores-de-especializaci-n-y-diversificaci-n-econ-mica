@@ -252,7 +252,7 @@ denominador$po <- sec_nac$po / tot_nac$po
 
 ```
 
-Una vex tengamos tanto el numerador y denominador, se crea un objeto denominado `QL` a través de la función `dplyr`, el cual une los objetos `numerador` y `denominador` a través de `cve_sec`. Una vez unidos se realiza la división correspondiente para obtener el coeficiente de cada variable para cada sector de las 32 entidades federativas.
+Una vez tengamos tanto el numerador y denominador, se crea un objeto denominado `QL` a través de la función `dplyr`, el cual une los objetos `numerador` y `denominador` a través de `cve_sec`. Una vez unidos se realiza la división correspondiente para obtener el coeficiente de cada variable para cada sector de las 32 entidades federativas.
 
 ```{r}
 
@@ -273,6 +273,7 @@ QL <- QL %>%
   select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
 
 ```
+
 #### *3.1.2. Estimación del coeficiente HH modificado*
 La estimación del HH modificado sigue la misma lógica del QL. Primero se tiene que estimar la participación relativa de cada sector en cada entidad dentro de cada sector en el total nacional. Posteriormente, se estima la participación relativa de cada sector a nivel nacional en el total de la actividad económica del país. Por tanto, primero se crea el objeto `Cociente_1` el cual contiene la primera participación relativa mencionada, esto se crea a través de la paqueteria `dplyr` al unir `sec_ent`y `sec_nac` por medio de `cve_sec`. Una vez esten unidos se realiza el cociente correpondiente.
 
@@ -291,6 +292,62 @@ Cociente_1 <- sec_ent %>%
 
 ```
 
-para 
+Para el `Cociente_2` se crea el objeto `Cociente_2` a partir del vector `tot_ent` y posteriormente a las variables de `Cociente_2` se sobreescriben al hacer la división de las variables de `tot_ent` entre `tot_nac`.
+
+```{r}
+Cociente_2 <- tot_ent
+
+# Aplicar la división para cada columna correspondiente
+
+Cociente_2$ue <- tot_ent$ue / tot_nac$ue
+Cociente_2$re <- tot_ent$re / tot_nac$re
+Cociente_2$pb <- tot_ent$pb / tot_nac$pb
+Cociente_2$va <- tot_ent$va / tot_nac$va
+Cociente_2$fb <- tot_ent$fb / tot_nac$fb
+Cociente_2$af <- tot_ent$af / tot_nac$af
+Cociente_2$po <- tot_ent$po / tot_nac$po
+```
+Una vez tengamos los vectores `Cociente_1` y `Cociente_2`, se crea un objeto denominado `HH` a través de la función `dplyr`, el cual une `Cociente_1` y `Cociente_2` a través de `cve_ent`. Una vez unidos se realiza la resta correspondiente para obtener el coeficiente de cada variable para cada sector de las 32 entidades federativas.
+
+```{r}
+HH <- Cociente_1 %>% 
+  left_join(Cociente_2, by = c("cve_ent")) %>% 
+  mutate(HHue = ue.x-ue.y,
+         HHre = re.x-re.y,
+         HHpb = pb.x-pb.y,
+         HHva = va.x-va.y,
+         HHfb = fb.x-fb.y,
+         HHaf = af.x-af.y,
+         HHpo = po.x-po.y) %>% 
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)
+```
+
+#### *3.1.3. Estimación del coeficiente de Gini*
+
+Para estimar el coeficiente de Gini no tenemos que crear vectores propiamente, 
+
+```{r}
+# Instalar e importar la paquetería ineq
+library(ineq)
+```
+
+```{r}
+# Calcular el índice de Gini por sector
+gini_por_sector <- datos %>%
+  group_by(cve_sec) %>%
+  summarise(gini = Gini(po, na.rm = TRUE))
+
+print(gini_por_sector)
+```
+
+```{r}
+# Calcular el índice de Gini por entidad
+gini_por_entidad <- datos %>%
+  group_by(cve_ent) %>%
+  summarise(gini = Gini(po, na.rm = TRUE))
+
+print(gini_por_entidad)
+```
+
 
 ### **Bibliografía**

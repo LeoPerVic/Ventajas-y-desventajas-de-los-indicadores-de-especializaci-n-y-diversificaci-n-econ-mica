@@ -903,7 +903,7 @@ denominador$va &lt;- sec_nac$va / tot_nac$va
 denominador$fb &lt;- sec_nac$fb / tot_nac$fb
 denominador$af &lt;- sec_nac$af / tot_nac$af
 denominador$po &lt;- sec_nac$po / tot_nac$po</code></pre>
-<p>Una vex tengamos tanto el numerador y denominador, se crea un objeto
+<p>Una vez tengamos tanto el numerador y denominador, se crea un objeto
 denominado <code>QL</code> a través de la función <code>dplyr</code>, el
 cual une los objetos <code>numerador</code> y <code>denominador</code> a
 través de <code>cve_sec</code>. Una vez unidos se realiza la división
@@ -947,7 +947,94 @@ cociente correpondiente.</p>
          af = af.x/af.y,
          po = po.x/po.y) %&gt;% 
   select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
-<p>para</p>
+<p>Para el <code>Cociente_2</code> se crea el objeto
+<code>Cociente_2</code> a partir del vector <code>tot_ent</code> y
+posteriormente a las variables de <code>Cociente_2</code> se
+sobreescriben al hacer la división de las variables de
+<code>tot_ent</code> entre <code>tot_nac</code>.</p>
+<pre class="r"><code>Cociente_2 &lt;- tot_ent
+
+# Aplicar la división para cada columna correspondiente
+
+Cociente_2$ue &lt;- tot_ent$ue / tot_nac$ue
+Cociente_2$re &lt;- tot_ent$re / tot_nac$re
+Cociente_2$pb &lt;- tot_ent$pb / tot_nac$pb
+Cociente_2$va &lt;- tot_ent$va / tot_nac$va
+Cociente_2$fb &lt;- tot_ent$fb / tot_nac$fb
+Cociente_2$af &lt;- tot_ent$af / tot_nac$af
+Cociente_2$po &lt;- tot_ent$po / tot_nac$po</code></pre>
+<p>Una vez tengamos los vectores <code>Cociente_1</code> y
+<code>Cociente_2</code>, se crea un objeto denominado <code>HH</code> a
+través de la función <code>dplyr</code>, el cual une
+<code>Cociente_1</code> y <code>Cociente_2</code> a través de
+<code>cve_ent</code>. Una vez unidos se realiza la resta correspondiente
+para obtener el coeficiente de cada variable para cada sector de las 32
+entidades federativas.</p>
+<pre class="r"><code>HH &lt;- Cociente_1 %&gt;% 
+  left_join(Cociente_2, by = c(&quot;cve_ent&quot;)) %&gt;% 
+  mutate(HHue = ue.x-ue.y,
+         HHre = re.x-re.y,
+         HHpb = pb.x-pb.y,
+         HHva = va.x-va.y,
+         HHfb = fb.x-fb.y,
+         HHaf = af.x-af.y,
+         HHpo = po.x-po.y) %&gt;% 
+  select(-ue.x, -ue.y, -re.x, -re.y, -pb.x, -pb.y, -va.x, -va.y, -fb.x, -fb.y, -af.x, -af.y, -po.x, -po.y)</code></pre>
+</div>
+<div id="estimación-del-coeficiente-de-gini" class="section level4">
+<h4><em>3.1.3. Estimación del coeficiente de Gini</em></h4>
+<p>Para estimar el coeficiente de Gini no tenemos que crear vectores
+propiamente,</p>
+<pre class="r"><code># Instalar e importar la paquetería ineq
+library(ineq)</code></pre>
+<pre class="r"><code># Calcular el índice de Gini por sector
+gini_por_sector &lt;- datos %&gt;%
+  group_by(cve_sec) %&gt;%
+  summarise(gini = Gini(po, na.rm = TRUE))
+
+print(gini_por_sector)</code></pre>
+<pre><code>## # A tibble: 19 × 2
+##    cve_sec  gini
+##    &lt;chr&gt;   &lt;dbl&gt;
+##  1 11      0.603
+##  2 21      0.483
+##  3 22      0.426
+##  4 23      0.439
+##  5 31-33   0.514
+##  6 43      0.491
+##  7 46      0.430
+##  8 48-49   0.498
+##  9 51      0.708
+## 10 52      0.853
+## 11 53      0.480
+## 12 54      0.618
+## 13 55      0.803
+## 14 56      0.583
+## 15 61      0.532
+## 16 62      0.458
+## 17 71      0.471
+## 18 72      0.417
+## 19 81      0.444</code></pre>
+<pre class="r"><code># Calcular el índice de Gini por entidad
+gini_por_entidad &lt;- datos %&gt;%
+  group_by(cve_ent) %&gt;%
+  summarise(gini = Gini(po, na.rm = TRUE))
+
+print(gini_por_entidad)</code></pre>
+<pre><code>## # A tibble: 32 × 2
+##    cve_ent  gini
+##    &lt;chr&gt;   &lt;dbl&gt;
+##  1 01      0.632
+##  2 02      0.692
+##  3 03      0.537
+##  4 04      0.481
+##  5 05      0.662
+##  6 06      0.527
+##  7 07      0.571
+##  8 08      0.723
+##  9 09      0.441
+## 10 10      0.637
+## # ℹ 22 more rows</code></pre>
 </div>
 <div id="bibliografía" class="section level3">
 <h3><strong>Bibliografía</strong></h3>
